@@ -9,7 +9,7 @@ const vampireSchema = new Schema({
   location: String,
   gender: String,
   victims: Number,
-
+  title: String,
 });
 
 

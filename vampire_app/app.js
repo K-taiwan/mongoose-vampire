@@ -41,7 +41,8 @@ const newVampires = [
         loves: ['cereal','marshmallows'],
         location: 'Minneapolis, Minnesota, US',
         gender: 'm',
-        victims: 2000000
+        victims: 2000000,
+        title: 'Wish me Luck'
       },{
         name: 'Count Savage',
         dob: new Date(937, 0, 24, 13, 0),
@@ -125,7 +126,7 @@ const newVampires = [
 } )
  */
 // have greater than 150 AND fewer than 500 victims
-Vampire.find({victims: {$gt: 150, $lt: 500}}, (error, foundVampires) => {
+/* Vampire.find({victims: {$gt: 150, $lt: 500}}, (error, foundVampires) => {
     if(error) {
         console.log(error);
         mongoose.connection.close();
@@ -133,9 +134,45 @@ Vampire.find({victims: {$gt: 150, $lt: 500}}, (error, foundVampires) => {
         console.log('Success', foundVampires);
     }
 } )
-
+ */
 /////////////////////////////////////////////////
 // ### Select by exists or does not exist
+// have a title property
+/* Vampire.find({title: {$exists: true }}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+    }
+}) */
+// do not have a victims property
+/* Vampire.find({victims: {$exists: false }}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+    }
+}) */
+// have a title AND no victims
+/* Vampire.find({title: {$exists: true }, victims: {$exists: false}}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+    }
+}) */
+// have victims AND the victims they have are greater than 1000
+Vampire.find({victims: {$exists: true}, victims: {$gt: 1000}}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+    }
+})
 
 /////////////////////////////////////////////////
 // ### Select with OR
