@@ -23,7 +23,21 @@ mongoose.connect(DB_URL, {
 // INSERT USING MONGOOSE
 // ### Add the vampire data that we gave you
 
-
+//NOTE very important, Need to delete the older data when adding new, or else replicate
+// Vampire.deleteMany({}, function(err, newVampires){
+//     if(err) {
+//       console.log('Error occurred in remove', err);
+//     } else {
+//       console.log('removed all books');
+  
+//       // create new records based on the array books_list
+//       Vampire.create(vampireData, (error, newVampires) => {
+//         if(error) return console.log(error);
+//         console.log('Success...' , newVampires);
+//         mongoose.connection.close();
+//     });
+//     };
+//   });
 /* Vampire.insertMany(vampireData, (error, newVampires) => {
     if(error) return console.log(error);
     console.log('Success...' , newVampires);
@@ -32,53 +46,53 @@ mongoose.connect(DB_URL, {
 
 // ### Add some new vampire data
 
-const newVampires = [
-    {
-        name: 'Count Mulla',
-        hair_color: 'brown',
-        eye_color: 'brown',
-        dob: new Date(1971, 2, 13, 7, 47),
-        loves: ['cereal','marshmallows'],
-        location: 'Minneapolis, Minnesota, US',
-        gender: 'm',
-        victims: 2000000,
-        title: 'Wish me Luck'
-      },{
-        name: 'Count Savage',
-        dob: new Date(937, 0, 24, 13, 0),
-        hair_color: 'brown',
-        eye_color: 'blue',
-        loves: ['Winona Ryder', 'top hats', 'fancy cloaks', 'handlebar   mustaches'],
-        location: 'Transylvania, Romania',
-        gender: 'm',
-        victims: 1238000
-      },{
-        name: 'Count Ellena ',
-        dob: new Date(1560, 8, 7, 22, 10),
-        hair_color: 'brown',
-        eye_color: 'brown',
-        loves: ['virgin blood', 'fancy cloaks','frilly collars'],
-        location: 'Nyírbátor, Hungary',
-        gender: 'f',
-        victims: 9800000
-      },{
-        name: 'Count Rosie',
-        dob: new Date(1760, 11, 9, 18, 44),
-        hair_color: 'blonde',
-        eye_color: 'blue',
-        loves: ['frilly shirtsleeves', 'frilly collars', 'lurking in   rotting mansions', 'Louis'],
-        location: 'Auvergne, France',
-        gender: 'f',
-        victims: 3240000
-      }
+// const newVampiresData = [
+//     {
+//         name: 'Count Mulla',
+//         hair_color: 'brown',
+//         eye_color: 'brown',
+//         dob: new Date(1971, 2, 13, 7, 47),
+//         loves: ['cereal','marshmallows'],
+//         location: 'Minneapolis, Minnesota, US',
+//         gender: 'm',
+//         victims: 2000000,
+//         title: 'Wish me Luck'
+//       },{
+//         name: 'Count Savage',
+//         dob: new Date(937, 0, 24, 13, 0),
+//         hair_color: 'brown',
+//         eye_color: 'blue',
+//         loves: ['Winona Ryder', 'top hats', 'fancy cloaks', 'handlebar   mustaches'],
+//         location: 'Transylvania, Romania',
+//         gender: 'm',
+//         victims: 1238000
+//       },{
+//         name: 'Count Ellena ',
+//         dob: new Date(1560, 8, 7, 22, 10),
+//         hair_color: 'brown',
+//         eye_color: 'brown',
+//         loves: ['virgin blood', 'fancy cloaks','frilly collars'],
+//         location: 'Nyírbátor, Hungary',
+//         gender: 'f',
+//         victims: 9800000
+//       },{
+//         name: 'Count Rosie',
+//         dob: new Date(1760, 11, 9, 18, 44),
+//         hair_color: 'blonde',
+//         eye_color: 'blue',
+//         loves: ['frilly shirtsleeves', 'frilly collars', 'lurking in   rotting mansions', 'Louis'],
+//         location: 'Auvergne, France',
+//         gender: 'f',
+//         victims: 3240000
+//       }
 
-]
+// ]
 
-/* Vampire.create(vampireData, (error, newVampires) => {
-    if(error) return console.log(error);
-    console.log('Success...' , newVampires);
-    mongoose.connection.close();
-}) */
+// Vampire.create(newVampiresData, (error, newVampires) => {
+//     if(error) return console.log(error);
+//     console.log('Success...' , newVampires);
+//     mongoose.connection.close();
+// })
 
 /////////////////////////////////////////////////
 // ## QUERYING
@@ -165,18 +179,58 @@ const newVampires = [
     }
 }) */
 // have victims AND the victims they have are greater than 1000
-Vampire.find({victims: {$exists: true}, victims: {$gt: 1000}}, (error, foundVampires) => {
+/* Vampire.find({victims: {$exists: true}, victims: {$gt: 1000}}, (error, foundVampires) => {
     if(error) {
         console.log(error);
         mongoose.connection.close();
     }   else {
         console.log('Success', foundVampires);
     }
-})
+}) */
 
 /////////////////////////////////////////////////
 // ### Select with OR
+// are from New York, New York, US or New Orleans, Louisiana, US
+/* Vampire.find({$or: [{location: 'New York, New York, US'},{location: 'New Orleans, Louisiana, US'}]}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }
+}) */
+// love brooding or being tragic
+/* Vampire.find({$or: [{loves: 'brooding'},{loves: 'being tragic'}]}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }
+}) */
+// have more than 1000 victims or love marshmallows
+/* Vampire.find({$or: [{victims: {$gt: 1000}},{loves: 'marshmallows'}]}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }
+}) */
 
+// have red hair or green eyes
+Vampire.find({$or: [{hair_color: 'red'},{eye_color: 'green'}]}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }
+})
 /////////////////////////////////////////////////
 //### Select objects that match one of several values
 
