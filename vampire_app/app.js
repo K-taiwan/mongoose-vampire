@@ -103,6 +103,37 @@ const newVampires = [
     }
 } ) */
 
+//Vampires with fewer or equal to 150 kills
+/* Vampire.find({victims: {$lte: 150}}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+    }
+} ) */
+
+
+// have a victim count is not equal to 210234
+/* Vampire.find({victims: {$ne: 210234}}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+    }
+} )
+ */
+// have greater than 150 AND fewer than 500 victims
+Vampire.find({victims: {$gt: 150, $lt: 500}}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+    }
+} )
+
 /////////////////////////////////////////////////
 // ### Select by exists or does not exist
 
