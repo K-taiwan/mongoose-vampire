@@ -264,7 +264,7 @@ mongoose.connect(DB_URL, {
     }
 }) */
 // love fancy cloaks but not if they also love either top hats or virgin blood * Hint-You will also have to use $nin *
-Vampire.find({$and: [{loves: 'fancy cloaks'}, {loves: {$nin: ['top hasts', 
+/* Vampire.find({$and: [{loves: 'fancy cloaks'}, {loves: {$nin: ['top hasts', 
 'virgin blood']}}]} , (error, foundVampires) => {
     if(error) {
         console.log(error);
@@ -273,12 +273,51 @@ Vampire.find({$and: [{loves: 'fancy cloaks'}, {loves: {$nin: ['top hasts',
         console.log('Success', foundVampires);
         console.log(foundVampires.length);
     }  
-})
+}) */
 
 /////////////////////////////////////////////////
 //### Negative Selection
-
-
+// love ribbons but do not have brown eyes
+/* Vampire.find({$and: [{loves: 'ribbons'}, {eye_color: {$nin: ['brown']}}]} , (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }  
+}) */
+// are not from Rome
+/* Vampire.find({location: {$nin: ['Rome, Italy']}} , (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }  
+}) */
+// do not love any of the following: [fancy cloaks, frilly shirtsleeves, appearing innocent, being tragic, brooding]
+/* Vampire.find({loves: {$nin: ['fancy cloaks', 
+'frilly shirtsleeves', 'appearing innocent', 'being tragic', 'brooding']}} , (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }  
+}) */
+// have not killed more than 200 people
+Vampire.find({victims: {$lt: 200}} , (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }  
+})
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // ## REPLACE
