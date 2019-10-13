@@ -222,7 +222,7 @@ mongoose.connect(DB_URL, {
 }) */
 
 // have red hair or green eyes
-Vampire.find({$or: [{hair_color: 'red'},{eye_color: 'green'}]}, (error, foundVampires) => {
+/* Vampire.find({$or: [{hair_color: 'red'},{eye_color: 'green'}]}, (error, foundVampires) => {
     if(error) {
         console.log(error);
         mongoose.connection.close();
@@ -230,12 +230,54 @@ Vampire.find({$or: [{hair_color: 'red'},{eye_color: 'green'}]}, (error, foundVam
         console.log('Success', foundVampires);
         console.log(foundVampires.length);
     }
-})
+}) */
 /////////////////////////////////////////////////
 //### Select objects that match one of several values
+// love either frilly shirtsleeves or frilly collars
+/* Vampire.find({$or: [{loves: 'frilly shirtsleeves'},{loves: 'frilly collars'}]}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }
+}) */
+// love brooding
+/* Vampire.find({loves: 'brooding'}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }
+}) */
+// love at least one of the following: appearing innocent, trickery, lurking in rotting mansions, R&B music
+/* Vampire.find({$or: [{loves: 'appearing innocent'},{loves: 'trickery'}, {loves: 'lurking in rotting mansions'}, {loves: 'R&B music'}]}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }
+}) */
+// love fancy cloaks but not if they also love either top hats or virgin blood * Hint-You will also have to use $nin *
+Vampire.find({$and: [{loves: 'fancy cloaks'}, {loves: {$nin: ['top hasts', 
+'virgin blood']}}]} , (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }  
+})
 
 /////////////////////////////////////////////////
 //### Negative Selection
+
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
