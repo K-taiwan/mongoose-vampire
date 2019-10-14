@@ -337,7 +337,7 @@ mongoose.connect(DB_URL, {
 /////////////////////////////////////////////////
 // ## UPDATE
 // Update 'Eve' to have a gender of 'm'
-/* Vampire.updateOne({name: 'Eve'}, {$set: {gender: 'm'}}, {new: true}, (error, foundVampires) => {
+/* Vampire.findOneAndUpdate({name: 'Eve'}, {$set: {gender: 'm'}}, {new: true}, (error, foundVampires) => {
     if(error) {
         console.log(error);
         mongoose.connection.close();
@@ -348,7 +348,7 @@ mongoose.connect(DB_URL, {
 }) */
 
 // Rename 'Eve's' name field to 'moniker'
-/* Vampire.updateOne({name: 'Eve'}, {$rename: {'name': 'moniker'}}, {new: true}, (error, foundVampires) => {
+/* Vampire.findOneAndUpdate({name: 'Eve'}, {$rename: {'name': 'moniker'}}, {new: true}, (error, foundVampires) => {
     if(error) {
         console.log(error);
         mongoose.connection.close();
@@ -359,7 +359,7 @@ mongoose.connect(DB_URL, {
 })
  */
 // We now no longer want to categorize female gender as "f", but rather as fems. Update all females so that the they are of gender "fems".
-Vampire.updateMany({gender: 'f'}, {$set: {gender: 'fems'}}, {new: true}, (error, foundVampires) => {
+/* Vampire.updateMany({gender: 'f'}, {$set: {gender: 'fems'}}, {new: true}, (error, foundVampires) => {
     if(error) {
         console.log(error);
         mongoose.connection.close();
@@ -368,10 +368,31 @@ Vampire.updateMany({gender: 'f'}, {$set: {gender: 'fems'}}, {new: true}, (error,
         console.log(foundVampires.length);
     }  
 })
-
+ */
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // ## REMOVE
+// Remove a single document wherein the hair_color is 'brown'
+/* Vampire.findOneAndRemove({hair_color: 'brown'}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }  
+}) */
+
+// We found out that the vampires with the blue eyes were just fakes! Let's remove all the vampires who have blue eyes from our database.
+/* Vampire.deleteMany({eye_color: 'blue'}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }  
+}) */
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
