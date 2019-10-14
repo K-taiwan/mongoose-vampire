@@ -309,7 +309,46 @@ mongoose.connect(DB_URL, {
     }  
 }) */
 // have not killed more than 200 people
-Vampire.find({victims: {$lt: 200}} , (error, foundVampires) => {
+/* Vampire.find({victims: {$lt: 200}} , (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }  
+}) */
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+// ## REPLACE
+// Replace the vampire called 'Claudia' with a vampire called 'Eve'.
+/* Vampire.updateOne({name: 'Claudia'}, {$set: {name: 'Eve'}}, {new: true}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }  
+}) */
+
+
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+// ## UPDATE
+// Update 'Eve' to have a gender of 'm'
+/* Vampire.updateOne({name: 'Eve'}, {$set: {gender: 'm'}}, {new: true}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }  
+}) */
+
+// Rename 'Eve's' name field to 'moniker'
+/* Vampire.updateOne({name: 'Eve'}, {$rename: {'name': 'moniker'}}, {new: true}, (error, foundVampires) => {
     if(error) {
         console.log(error);
         mongoose.connection.close();
@@ -318,13 +357,17 @@ Vampire.find({victims: {$lt: 200}} , (error, foundVampires) => {
         console.log(foundVampires.length);
     }  
 })
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// ## REPLACE
-
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// ## UPDATE
+ */
+// We now no longer want to categorize female gender as "f", but rather as fems. Update all females so that the they are of gender "fems".
+Vampire.updateMany({gender: 'f'}, {$set: {gender: 'fems'}}, {new: true}, (error, foundVampires) => {
+    if(error) {
+        console.log(error);
+        mongoose.connection.close();
+    }   else {
+        console.log('Success', foundVampires);
+        console.log(foundVampires.length);
+    }  
+})
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
